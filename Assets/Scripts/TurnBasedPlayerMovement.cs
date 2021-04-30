@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class TurnBasedPlayerMovement : MonoBehaviour
 {
+    [SerializeField] [Tooltip("The distance in units with which the player moves.")]
+    private float _moveDistance = 0.5f;
     [SerializeField] [Tooltip("The speed with which the player moves from square to square.")]
     private float _moveSpeed = 5f;
     [SerializeField] [Tooltip("Local Empty Gameobject that defines the next move-point.")]
@@ -57,17 +59,17 @@ public class TurnBasedPlayerMovement : MonoBehaviour
                 var input = m_playerControls.DefaultInput.Move.ReadValue<Vector2>();
                 if (Mathf.Abs(input.x) == 1f)
                 {
-                    if(CheckCollision(_movePoint.position, new Vector3(input.x, 0f, 0f)) )
+                    if(CheckCollision(_movePoint.position, new Vector3(input.x * _moveDistance, 0f, 0f)) )
                     {
-                        _movePoint.position += new Vector3(input.x, 0f, 0f);
+                        _movePoint.position += new Vector3(input.x * _moveDistance, 0f, 0f);
                         PlayerMoved?.Invoke();
                     }
                 }
                 if (Mathf.Abs(input.y) == 1f)
                 {
-                    if (CheckCollision(_movePoint.position, new Vector3(0f, 0f, input.y)) )
+                    if (CheckCollision(_movePoint.position, new Vector3(0f, 0f, input.y * _moveDistance)) )
                     {
-                        _movePoint.position += new Vector3(0f, 0f, input.y);
+                        _movePoint.position += new Vector3(0f, 0f, input.y * _moveDistance);
                         PlayerMoved?.Invoke();
                     }
                 }
