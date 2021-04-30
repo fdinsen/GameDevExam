@@ -20,12 +20,13 @@ public class TurnBasedPlayerMovement : MonoBehaviour
 
     private PlayerControls m_playerControls;
     private float _moveCooldown;
-
+    private Animator _animator;
     private void Start()
     {
         //makes sure the movepoint won't move with the player
         _movePoint.parent = null;
         _moveCooldown = _timeBetweenInputs;
+        _animator = GetComponent<Animator>();
     }
     void OnEnable()
     {
@@ -63,6 +64,8 @@ public class TurnBasedPlayerMovement : MonoBehaviour
                     {
                         _movePoint.position += new Vector3(input.x * _moveDistance, 0f, 0f);
                         PlayerMoved?.Invoke();
+                        _animator?.SetFloat("MoveSpeed", Math.Abs(input.x));
+                        transform.rotation = Quaternion.Euler(0, 90*input.x, 0);
                     }
                 }
                 if (Mathf.Abs(input.y) == 1f)
@@ -71,6 +74,8 @@ public class TurnBasedPlayerMovement : MonoBehaviour
                     {
                         _movePoint.position += new Vector3(0f, 0f, input.y * _moveDistance);
                         PlayerMoved?.Invoke();
+                        _animator?.SetFloat("MoveSpeed", Math.Abs(input.y));
+                        transform.rotation = Quaternion.Euler(0, 180 * Mathf.Clamp(input.y *2, 1,2), 0);
                     }
                 }
             }
@@ -78,6 +83,11 @@ public class TurnBasedPlayerMovement : MonoBehaviour
         else
         {
             _moveCooldown -= Time.deltaTime;
+        }
+
+        if(transform.position.Equals(_movePoint.position))
+        {
+            _animator?.SetFloat("MoveSpeed", 0f);
         }
     }
 
