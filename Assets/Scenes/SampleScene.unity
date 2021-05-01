@@ -4311,6 +4311,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlimePBR
       objectReference: {fileID: 0}
+    - target: {fileID: 1931298151966786, guid: e5bf32a70c2e58f4f9ec61dad9659a4b, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 4047972025199878, guid: e5bf32a70c2e58f4f9ec61dad9659a4b, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -7231,22 +7235,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1920840864, guid: cc523318fef1c994490f6086ddfa1e90, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9752074
-      objectReference: {fileID: 0}
-    - target: {fileID: 1920840864, guid: cc523318fef1c994490f6086ddfa1e90, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.22129321
-      objectReference: {fileID: 0}
-    - target: {fileID: 1920840864, guid: cc523318fef1c994490f6086ddfa1e90, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 25.57
-      objectReference: {fileID: 0}
-    - target: {fileID: 5681166767406117150, guid: cc523318fef1c994490f6086ddfa1e90, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 6dae8f29a04690742b77f17f028e3200, type: 2}
     - target: {fileID: 5730023304448926480, guid: cc523318fef1c994490f6086ddfa1e90, type: 3}
       propertyPath: m_Name
       value: PlayerModel
@@ -7294,14 +7282,6 @@ PrefabInstance:
     - target: {fileID: 5732447272408408028, guid: cc523318fef1c994490f6086ddfa1e90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5733763955755096732, guid: cc523318fef1c994490f6086ddfa1e90, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5733763955755096732, guid: cc523318fef1c994490f6086ddfa1e90, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc523318fef1c994490f6086ddfa1e90, type: 3}
