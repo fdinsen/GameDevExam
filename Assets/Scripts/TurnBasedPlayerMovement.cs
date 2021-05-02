@@ -105,4 +105,9 @@ public class TurnBasedPlayerMovement : MonoBehaviour
     {
         return Physics.OverlapSphere(currentPosition + moveBy, .2f, _whatStopsMovement).Length == 0;
     }
+
+    public Transform GetMovePoint()
+    {
+        return _movePoint;
+    }
 }
