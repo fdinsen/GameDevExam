@@ -7,7 +7,7 @@ public class TurnBasedPlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] [Tooltip("The distance in units with which the player moves.")]
-    private float _moveDistance = 0.5f;
+    private readonly float _moveDistance = 0.5f;
     [SerializeField] [Tooltip("The speed with which the player moves from square to square.")]
     private float _moveSpeed = 5f;
     [SerializeField] [Tooltip("The speed with which the player rotates when moving from square to square")]
@@ -50,6 +50,8 @@ public class TurnBasedPlayerMovement : MonoBehaviour
     void Awake()
     {
         m_playerControls = new PlayerControls();
+        m_playerControls.DefaultInput.TurnLeft.performed += ctx => TurnLeft();
+        m_playerControls.DefaultInput.TurnRight.performed += ctx => TurnRight();
     }
 
     private void Update()
@@ -109,5 +111,29 @@ public class TurnBasedPlayerMovement : MonoBehaviour
     public Transform GetMovePoint()
     {
         return _movePoint;
+    }
+
+    public void TurnLeft()
+    {
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y - 90, 0));
+        transform.rotation = targetRotation;
+        _movePoint.rotation = targetRotation;
+    }
+
+    public void TurnRight()
+    {
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y + 90, 0));
+        transform.rotation = targetRotation;
+        _movePoint.rotation = targetRotation;
+    }
+
+    public void InvokePlayerAction()
+    {
+        PlayerMoved.Invoke();
+    }
+
+    public float GetMoveDistance()
+    {
+        return _moveDistance;
     }
 }

@@ -33,6 +33,22 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""TurnLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce5965b1-1d76-434d-b4a6-bc076e8e35bf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""TurnRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""8b6c7c20-f159-458c-9407-5c09e3bbc0f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -101,6 +117,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""85308527-e809-4998-9cfd-6f0ecec5d630"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TurnLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff777932-84fd-45d3-8932-a4e2eea70528"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TurnRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -111,6 +149,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_DefaultInput = asset.FindActionMap("DefaultInput", throwIfNotFound: true);
         m_DefaultInput_onPress = m_DefaultInput.FindAction("onPress", throwIfNotFound: true);
         m_DefaultInput_Move = m_DefaultInput.FindAction("Move", throwIfNotFound: true);
+        m_DefaultInput_TurnLeft = m_DefaultInput.FindAction("TurnLeft", throwIfNotFound: true);
+        m_DefaultInput_TurnRight = m_DefaultInput.FindAction("TurnRight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -162,12 +202,16 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private IDefaultInputActions m_DefaultInputActionsCallbackInterface;
     private readonly InputAction m_DefaultInput_onPress;
     private readonly InputAction m_DefaultInput_Move;
+    private readonly InputAction m_DefaultInput_TurnLeft;
+    private readonly InputAction m_DefaultInput_TurnRight;
     public struct DefaultInputActions
     {
         private @PlayerControls m_Wrapper;
         public DefaultInputActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @onPress => m_Wrapper.m_DefaultInput_onPress;
         public InputAction @Move => m_Wrapper.m_DefaultInput_Move;
+        public InputAction @TurnLeft => m_Wrapper.m_DefaultInput_TurnLeft;
+        public InputAction @TurnRight => m_Wrapper.m_DefaultInput_TurnRight;
         public InputActionMap Get() { return m_Wrapper.m_DefaultInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -183,6 +227,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnMove;
+                @TurnLeft.started -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnTurnLeft;
+                @TurnLeft.performed -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnTurnLeft;
+                @TurnLeft.canceled -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnTurnLeft;
+                @TurnRight.started -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnTurnRight;
+                @TurnRight.performed -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnTurnRight;
+                @TurnRight.canceled -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnTurnRight;
             }
             m_Wrapper.m_DefaultInputActionsCallbackInterface = instance;
             if (instance != null)
@@ -193,6 +243,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @TurnLeft.started += instance.OnTurnLeft;
+                @TurnLeft.performed += instance.OnTurnLeft;
+                @TurnLeft.canceled += instance.OnTurnLeft;
+                @TurnRight.started += instance.OnTurnRight;
+                @TurnRight.performed += instance.OnTurnRight;
+                @TurnRight.canceled += instance.OnTurnRight;
             }
         }
     }
@@ -201,5 +257,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     {
         void OnOnPress(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+        void OnTurnLeft(InputAction.CallbackContext context);
+        void OnTurnRight(InputAction.CallbackContext context);
     }
 }
