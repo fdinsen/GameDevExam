@@ -1,29 +1,100 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeEnemy : MonoBehaviour, Enemy
+[RequireComponent(typeof(EnemyMovement))]
+public class SlimeEnemy : MonoBehaviour, IEnemy, IAttackable
 {
-    public void doAttack(Vector3 currentPosition, Vector3 target)
+    [SerializeField] private AttackDefinition slimeAttack;
+
+    private CharacterStats _stats;
+    private Animator _animator;
+    private EnemyMovement _enemyMovement;
+     
+
+    void Awake()
     {
-        Debug.Log("Did attack");
+        _enemyMovement = GetComponent<EnemyMovement>();
+        _stats = GetComponent<CharacterStats>();
+        _animator = GetComponent<Animator>();
+    }
+    public void DoAttack(Vector3 currentPosition, Vector3 target)
+    {
+        RaycastHit hit;
+        transform.LookAt(target);
+        if(Physics.Raycast(currentPosition, target, out hit, slimeAttack.Range))
+        {
+            bool isAttackable = hit.collider.GetComponent(typeof(IAttackable)) != null;
+            if (isAttackable)
+            {
+                GameObject targetObj = hit.collider.gameObject;
+                var attack = slimeAttack.CreateAttack(_stats, targetObj.GetComponent<CharacterStats>());
+
+                var attackables = targetObj.GetComponentsInChildren(typeof(IAttackable));
+
+                foreach (IAttackable attackable in attackables)
+                {
+                    attackable.OnAttacked(gameObject, attack);
+                }
+            }
+        }
+        _animator.SetTrigger("Attack");
     }
 
-    public bool isWithinRange(Vector3 currentPosition, Vector3 playerPos)
-    {
-        Vector3 distance = playerPos - currentPosition;
-        return Mathf.Abs(Mathf.Abs(distance.x) - Mathf.Abs(distance.z)) == .5f;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        Debug.DrawLine(transform.position, _enemyMovement.GetPlayerMovePoint().position * (slimeAttack.Range * 1.5f));
+    }
+
+    public bool IsWithinRange(Vector3 currentPosition, Vector3 playerPos)
+    {
+        Vector3 halfExtents = new Vector3(slimeAttack.Range, slimeAttack.Range, slimeAttack.Range);
+        var colliders = Physics.OverlapBox(currentPosition, halfExtents);
+        foreach(Collider col in colliders)
+        {
+            if(col.gameObject.CompareTag("Player"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void Move()
+    {
+        if (!IsWithinRange(transform.position, _enemyMovement.GetPlayerMovePoint().position))
+        {
+            var dir = _enemyMovement.GetMoveDir(this.transform.position, _enemyMovement.GetPlayerMovePoint().position);
+            _enemyMovement.SetMovePointFromDirectionList(_enemyMovement.GetPrioritizedListOfDirections(dir), dir, ref _enemyMovement.MovePoint);
+
+            StartCoroutine(
+                _enemyMovement.MoveObject(transform.position, _enemyMovement.MovePoint.position, _enemyMovement.GetMoveTime())
+            );
+            StartCoroutine(
+                _enemyMovement.RotateObject(transform.rotation, _enemyMovement.MovePoint.rotation, _enemyMovement.GetMoveTime())
+            );
+        }
+        else
+        {
+            DoAttack(transform.position, _enemyMovement.GetPlayer().transform.position);
+        }
+    }
+
+    public void OnAttacked(GameObject attacker, Attack attack)
+    {
+        _animator.SetTrigger("Hit");
+        if (attack.IsCritical)
+        {
+            Debug.Log("Critical Damage!!");
+        }
+        _stats.TakeDamage(attack.Damage);
+        _enemyMovement.SetStunTime(attack.StunTime);
+        Debug.LogFormat("{0} attacked {1} for {2} damage.", attacker.name, name, attack.Damage);
+    }
+
+    public void Die()
+    {
+        throw new NotImplementedException();
     }
 }
