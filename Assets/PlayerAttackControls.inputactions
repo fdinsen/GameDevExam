@@ -1,5 +1,5 @@
 {
-    "name": "PlayerAttack",
+    "name": "PlayerAttackControls",
     "maps": [
         {
             "name": "DefaultInput",
@@ -11,7 +11,7 @@
                     "id": "f5cbdbe3-081e-434b-89c1-e3633946ab24",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "AlternateAttack",
@@ -19,7 +19,15 @@
                     "id": "d1c8e8fd-659f-418b-9faf-672e9eef5154",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
+                },
+                {
+                    "name": "AttackModifier",
+                    "type": "PassThrough",
+                    "id": "2f2bf460-a60b-4963-aa14-7eb9ee12e70f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Hold"
                 }
             ],
             "bindings": [
@@ -42,6 +50,17 @@
                     "processors": "",
                     "groups": "Keyboard/Mouse",
                     "action": "AlternateAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "42841b25-8376-449f-972e-48e3168fc1b8",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard/Mouse",
+                    "action": "AttackModifier",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

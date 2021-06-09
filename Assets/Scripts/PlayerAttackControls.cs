@@ -24,7 +24,7 @@ public class @PlayerAttackControls : IInputActionCollection, IDisposable
                     ""id"": ""f5cbdbe3-081e-434b-89c1-e3633946ab24"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""AlternateAttack"",
@@ -32,7 +32,15 @@ public class @PlayerAttackControls : IInputActionCollection, IDisposable
                     ""id"": ""d1c8e8fd-659f-418b-9faf-672e9eef5154"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""AttackModifier"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""2f2bf460-a60b-4963-aa14-7eb9ee12e70f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Hold""
                 }
             ],
             ""bindings"": [
@@ -55,6 +63,17 @@ public class @PlayerAttackControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard/Mouse"",
                     ""action"": ""AlternateAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""42841b25-8376-449f-972e-48e3168fc1b8"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard/Mouse"",
+                    ""action"": ""AttackModifier"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -84,6 +103,7 @@ public class @PlayerAttackControls : IInputActionCollection, IDisposable
         m_DefaultInput = asset.FindActionMap("DefaultInput", throwIfNotFound: true);
         m_DefaultInput_BaseAttack = m_DefaultInput.FindAction("BaseAttack", throwIfNotFound: true);
         m_DefaultInput_AlternateAttack = m_DefaultInput.FindAction("AlternateAttack", throwIfNotFound: true);
+        m_DefaultInput_AttackModifier = m_DefaultInput.FindAction("AttackModifier", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -135,12 +155,14 @@ public class @PlayerAttackControls : IInputActionCollection, IDisposable
     private IDefaultInputActions m_DefaultInputActionsCallbackInterface;
     private readonly InputAction m_DefaultInput_BaseAttack;
     private readonly InputAction m_DefaultInput_AlternateAttack;
+    private readonly InputAction m_DefaultInput_AttackModifier;
     public struct DefaultInputActions
     {
         private @PlayerAttackControls m_Wrapper;
         public DefaultInputActions(@PlayerAttackControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @BaseAttack => m_Wrapper.m_DefaultInput_BaseAttack;
         public InputAction @AlternateAttack => m_Wrapper.m_DefaultInput_AlternateAttack;
+        public InputAction @AttackModifier => m_Wrapper.m_DefaultInput_AttackModifier;
         public InputActionMap Get() { return m_Wrapper.m_DefaultInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -156,6 +178,9 @@ public class @PlayerAttackControls : IInputActionCollection, IDisposable
                 @AlternateAttack.started -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnAlternateAttack;
                 @AlternateAttack.performed -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnAlternateAttack;
                 @AlternateAttack.canceled -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnAlternateAttack;
+                @AttackModifier.started -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnAttackModifier;
+                @AttackModifier.performed -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnAttackModifier;
+                @AttackModifier.canceled -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnAttackModifier;
             }
             m_Wrapper.m_DefaultInputActionsCallbackInterface = instance;
             if (instance != null)
@@ -166,6 +191,9 @@ public class @PlayerAttackControls : IInputActionCollection, IDisposable
                 @AlternateAttack.started += instance.OnAlternateAttack;
                 @AlternateAttack.performed += instance.OnAlternateAttack;
                 @AlternateAttack.canceled += instance.OnAlternateAttack;
+                @AttackModifier.started += instance.OnAttackModifier;
+                @AttackModifier.performed += instance.OnAttackModifier;
+                @AttackModifier.canceled += instance.OnAttackModifier;
             }
         }
     }
@@ -183,5 +211,6 @@ public class @PlayerAttackControls : IInputActionCollection, IDisposable
     {
         void OnBaseAttack(InputAction.CallbackContext context);
         void OnAlternateAttack(InputAction.CallbackContext context);
+        void OnAttackModifier(InputAction.CallbackContext context);
     }
 }

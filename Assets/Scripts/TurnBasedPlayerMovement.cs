@@ -52,6 +52,7 @@ public class TurnBasedPlayerMovement : MonoBehaviour
         m_playerControls = new PlayerControls();
         m_playerControls.DefaultInput.TurnLeft.performed += ctx => TurnLeft();
         m_playerControls.DefaultInput.TurnRight.performed += ctx => TurnRight();
+        m_playerControls.DefaultInput.Interact.performed += ctx => Interact();
     }
 
     private void Update()
@@ -125,6 +126,27 @@ public class TurnBasedPlayerMovement : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y + 90, 0));
         transform.rotation = targetRotation;
         _movePoint.rotation = targetRotation;
+    }
+
+    public void Interact()
+    {
+        _animator.SetTrigger("Interact");
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, transform.forward * _moveDistance, out hit, LayerMask.GetMask("Interactable")))
+        {
+            bool isInteractable = hit.collider.GetComponent(typeof(IInteractable)) != null;
+            if(isInteractable)
+            {
+                GameObject target = hit.collider.gameObject;
+
+                var interactables = target.GetComponentsInChildren(typeof(IInteractable));
+
+                foreach (IInteractable interactable in interactables)
+                {
+                    interactable.Interact();
+                }
+            }
+        }
     }
 
     public void InvokePlayerAction()

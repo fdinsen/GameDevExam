@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setManually: 0
   saveDataOnClose: 0
-  maxHealth: 0
-  currentHealth: 0
-  maxWealth: 0
+  maxHealth: 100
+  currentHealth: 50
+  maxWealth: 500
   currentWealth: 0
-  maxMana: 0
-  currentMana: 0
-  baseDamage: 0
-  currentDamage: 0
+  maxMana: 25
+  currentMana: 10
+  baseDamage: 2
+  currentDamage: 2
   baseResistance: 0
   currentResistance: 0
-  maxEncumbrance: 0
+  maxEncumbrance: 50
   currentEncumbrance: 0
   charExperience: 0
-  charLevel: 0
+  charLevel: 1
   charLevelUps: []

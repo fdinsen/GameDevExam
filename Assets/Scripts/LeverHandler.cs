@@ -2,24 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeverHandler : MonoBehaviour
+public class LeverHandler : MonoBehaviour, IInteractable
 {
     [SerializeField] private Animator anim;
 
-    // Start is called before the first frame update
-    void Start()
+    private bool activated = false;
+    public void Interact()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void Activate()
-    {
-
+        activated = !activated;
+        anim.SetBool("Activated", activated);
     }
 }

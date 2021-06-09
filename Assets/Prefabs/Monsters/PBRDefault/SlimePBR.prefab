@@ -445,6 +445,7 @@ GameObject:
   - component: {fileID: 1933428793}
   - component: {fileID: 1979393283}
   - component: {fileID: 532453045}
+  - component: {fileID: 532453046}
   m_Layer: 6
   m_Name: SlimePBR
   m_TagString: Untagged
@@ -518,7 +519,11 @@ MonoBehaviour:
   MovePoint: {fileID: 652142509}
   _whatStopsMovement:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 264
+  _blocksLOS:
+    serializedVersion: 2
+    m_Bits: 255
+  stunTimer: 0
 --- !u!114 &532453045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,3 +537,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDefinition: {fileID: 11400000, guid: 5cbd121101e107a4f957d2f083ce96a0, type: 2}
+--- !u!65 &532453046
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931298151966786}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}

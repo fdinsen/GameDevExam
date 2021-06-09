@@ -35,7 +35,7 @@ public class SlimeEnemy : MonoBehaviour, IEnemy, IAttackable
 
                 foreach (IAttackable attackable in attackables)
                 {
-                    attackable.OnAttack(gameObject, attack);
+                    attackable.OnAttacked(gameObject, attack);
                 }
             }
         }
@@ -65,8 +65,8 @@ public class SlimeEnemy : MonoBehaviour, IEnemy, IAttackable
     {
         if (!IsWithinRange(transform.position, _enemyMovement.GetPlayerMovePoint().position))
         {
-            var dir = GetMoveDir(this.transform.position, _enemyMovement.GetPlayerMovePoint().position);
-            _enemyMovement.SetMovePoint(GetPrioritizedListOfDirections(dir), dir, ref _enemyMovement.MovePoint);
+            var dir = _enemyMovement.GetMoveDir(this.transform.position, _enemyMovement.GetPlayerMovePoint().position);
+            _enemyMovement.SetMovePointFromDirectionList(_enemyMovement.GetPrioritizedListOfDirections(dir), dir, ref _enemyMovement.MovePoint);
 
             StartCoroutine(
                 _enemyMovement.MoveObject(transform.position, _enemyMovement.MovePoint.position, _enemyMovement.GetMoveTime())
@@ -81,71 +81,20 @@ public class SlimeEnemy : MonoBehaviour, IEnemy, IAttackable
         }
     }
 
-    private Vector3 GetMoveDir(Vector3 source, Vector3 target)
+    public void OnAttacked(GameObject attacker, Attack attack)
     {
-        return (target - source).normalized;
-    }
-
-    private List<Direction> GetPrioritizedListOfDirections(Vector3 dir)
-    {
-        //UGLY SOLUTION; SHOULD BE IMPROVED
-        Direction[] movePriority = new Direction[4];
-        if (Mathf.Abs(dir.x) < Mathf.Abs(dir.z))
-        {
-            if (dir.z > 0)
-            {
-                movePriority[0] = Direction.UP;
-                movePriority[3] = Direction.DOWN;
-            }
-            else
-            {
-                movePriority[0] = Direction.DOWN;
-                movePriority[3] = Direction.UP;
-            }
-            if (dir.x > 0)
-            {
-                movePriority[1] = Direction.RIGHT;
-                movePriority[2] = Direction.LEFT;
-            }
-            else
-            {
-                movePriority[1] = Direction.LEFT;
-                movePriority[2] = Direction.RIGHT;
-            }
-        }
-        else
-        {
-            if (dir.x > 0)
-            {
-                movePriority[0] = Direction.RIGHT;
-                movePriority[3] = Direction.LEFT;
-            }
-            else
-            {
-                movePriority[0] = Direction.LEFT;
-                movePriority[3] = Direction.RIGHT;
-            }
-            if (dir.z > 0)
-            {
-                movePriority[1] = Direction.UP;
-                movePriority[2] = Direction.DOWN;
-            }
-            else
-            {
-                movePriority[1] = Direction.DOWN;
-                movePriority[2] = Direction.UP;
-            }
-        }
-        return new List<Direction>(movePriority);
-    }
-
-    public void OnAttack(GameObject attacker, Attack attack)
-    {
+        _animator.SetTrigger("Hit");
         if (attack.IsCritical)
         {
             Debug.Log("Critical Damage!!");
         }
-
+        _stats.TakeDamage(attack.Damage);
+        _enemyMovement.SetStunTime(attack.StunTime);
         Debug.LogFormat("{0} attacked {1} for {2} damage.", attacker.name, name, attack.Damage);
+    }
+
+    public void Die()
+    {
+        throw new NotImplementedException();
     }
 }

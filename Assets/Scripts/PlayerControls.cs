@@ -49,6 +49,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""e3c65e73-d853-48a0-bb97-1c4214db1ed8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -139,6 +147,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""TurnRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d68a96d6-83b8-4a05-8fdf-7bd6bf3d0c16"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -151,6 +170,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_DefaultInput_Move = m_DefaultInput.FindAction("Move", throwIfNotFound: true);
         m_DefaultInput_TurnLeft = m_DefaultInput.FindAction("TurnLeft", throwIfNotFound: true);
         m_DefaultInput_TurnRight = m_DefaultInput.FindAction("TurnRight", throwIfNotFound: true);
+        m_DefaultInput_Interact = m_DefaultInput.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -204,6 +224,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_DefaultInput_Move;
     private readonly InputAction m_DefaultInput_TurnLeft;
     private readonly InputAction m_DefaultInput_TurnRight;
+    private readonly InputAction m_DefaultInput_Interact;
     public struct DefaultInputActions
     {
         private @PlayerControls m_Wrapper;
@@ -212,6 +233,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_DefaultInput_Move;
         public InputAction @TurnLeft => m_Wrapper.m_DefaultInput_TurnLeft;
         public InputAction @TurnRight => m_Wrapper.m_DefaultInput_TurnRight;
+        public InputAction @Interact => m_Wrapper.m_DefaultInput_Interact;
         public InputActionMap Get() { return m_Wrapper.m_DefaultInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -233,6 +255,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @TurnRight.started -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnTurnRight;
                 @TurnRight.performed -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnTurnRight;
                 @TurnRight.canceled -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnTurnRight;
+                @Interact.started -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_DefaultInputActionsCallbackInterface = instance;
             if (instance != null)
@@ -249,6 +274,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @TurnRight.started += instance.OnTurnRight;
                 @TurnRight.performed += instance.OnTurnRight;
                 @TurnRight.canceled += instance.OnTurnRight;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -259,5 +287,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnTurnLeft(InputAction.CallbackContext context);
         void OnTurnRight(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

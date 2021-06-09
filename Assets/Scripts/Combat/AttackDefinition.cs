@@ -12,6 +12,7 @@ public class AttackDefinition : ScriptableObject
     public float maxDamage;
     public float criticalMultiplier;
     public float criticalChance;
+    public int stunTime;
 
     public Attack CreateAttack(CharacterStats wielderStats, CharacterStats defenderStats)
     {
@@ -27,6 +28,6 @@ public class AttackDefinition : ScriptableObject
             coreDamage -= defenderStats.GetResistance();
         }
 
-        return new Attack((int)coreDamage, isCritical);
+        return new Attack((int)coreDamage, isCritical, stunTime);
     }
 }
