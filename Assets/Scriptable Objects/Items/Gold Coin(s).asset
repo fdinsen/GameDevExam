@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 780265c094d207b4fb8bb785c04421a5, type: 3}
+  m_Name: Gold Coin(s)
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 8670569945233475625, guid: f03d1a14f5123a24d891c2eccd8c2fe7, type: 3}
+  type: 3
+  description: Shiny shiny gold, just what any man needs...
