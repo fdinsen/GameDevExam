@@ -29,6 +29,8 @@ public class TurnBasedPlayerMovement : MonoBehaviour
     private PlayerControls m_playerControls;
     private float _moveCooldown;
     private Animator _animator;
+    private CharacterStats stats;
+    public GameObject currentlyTraveledStairs = null;
     private void Start()
     {
         //makes sure the movepoint and camera won't move with the player
@@ -36,6 +38,8 @@ public class TurnBasedPlayerMovement : MonoBehaviour
         _camera.parent = null;
         _moveCooldown = _timeBetweenInputs;
         _animator = GetComponent<Animator>();
+        stats = GetComponent<CharacterStats>();
+        stats.ApplyHealth(5);
     }
     void OnEnable()
     {
@@ -59,13 +63,17 @@ public class TurnBasedPlayerMovement : MonoBehaviour
     {
         Move();
     }
-
     public void Move()
     {
         transform.position = Vector3.MoveTowards(transform.position, _movePoint.position, _moveSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, _movePoint.rotation, _rotationSpeed * Time.deltaTime);
 
-        if(_moveCooldown <= 0) 
+        if (currentlyTraveledStairs != null)
+        {
+            PlayerMoved?.Invoke();
+            currentlyTraveledStairs = null;
+        }
+        else if (_moveCooldown <= 0) 
         {
             _moveCooldown = _timeBetweenInputs;
             if(Vector3.Distance(transform.position, _movePoint.position) <= .05f)
@@ -73,7 +81,7 @@ public class TurnBasedPlayerMovement : MonoBehaviour
                 var input = m_playerControls.DefaultInput.Move.ReadValue<Vector2>();
                 if (Mathf.Abs(input.x) == 1f)
                 {
-                    if(CheckCollision(_movePoint.position, new Vector3(input.x * _moveDistance, 0f, 0f)) )
+                    if (CheckCollision(_movePoint.position, new Vector3(input.x * _moveDistance, 0f, 0f)) )
                     {
                         _movePoint.position += new Vector3(input.x * _moveDistance, 0f, 0f);
                         _movePoint.rotation = Quaternion.Euler(0, 90 * input.x, 0);
@@ -90,6 +98,7 @@ public class TurnBasedPlayerMovement : MonoBehaviour
                         PlayerMoved?.Invoke();
                         _animator?.SetFloat("MoveSpeed", Math.Abs(input.y));
                     }
+
                 }
             }
         }
@@ -107,6 +116,16 @@ public class TurnBasedPlayerMovement : MonoBehaviour
     private bool CheckCollision(Vector3 currentPosition, Vector3 moveBy)
     {
         return Physics.OverlapSphere(currentPosition + moveBy, .2f, _whatStopsMovement).Length == 0;
+    }
+
+    private bool CheckForStairs(Vector3 currentPosition, Vector3 moveBy)
+    {
+        return Physics.OverlapSphere(currentPosition + moveBy, .2f, LayerMask.GetMask("Stairs")).Length > 0;
+    }
+
+    private Collider GetStairs(Vector3 currentPosition, Vector3 moveBy)
+    {
+        return Physics.OverlapSphere(currentPosition + moveBy, .2f, LayerMask.GetMask("Stairs"))[0];
     }
 
     public Transform GetMovePoint()
@@ -157,5 +176,10 @@ public class TurnBasedPlayerMovement : MonoBehaviour
     public float GetMoveDistance()
     {
         return _moveDistance;
+    }
+
+    public void SetMovePoint(Vector3 position)
+    {
+        _movePoint.position = position;
     }
 }
