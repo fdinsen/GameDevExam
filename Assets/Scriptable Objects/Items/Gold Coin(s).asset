@@ -9,9 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 780265c094d207b4fb8bb785c04421a5, type: 3}
+  m_Script: {fileID: 11500000, guid: bf1e1fca68232e2498e8e1eb7c0d354d, type: 3}
   m_Name: Gold Coin(s)
   m_EditorClassIdentifier: 
-  prefab: {fileID: 8670569945233475625, guid: f03d1a14f5123a24d891c2eccd8c2fe7, type: 3}
-  type: 3
-  description: Shiny shiny gold, just what any man needs...
+  uiDisplay: {fileID: 194336859228450555, guid: d07b803c54ae9fb4ebfc1e8a13b12f4c, type: 3}
+  stackable: 1
+  type: 8
+  description: Shiny shiny gold coins, oh so valuable...
+  data:
+    Name: 
+    Id: 7
+    buffs: []

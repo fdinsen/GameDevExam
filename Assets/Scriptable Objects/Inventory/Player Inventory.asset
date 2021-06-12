@@ -12,4 +12,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c851bd4587b9d40a3ad31d776b8ad3, type: 3}
   m_Name: Player Inventory
   m_EditorClassIdentifier: 
-  Container: []
+  savePath: /Inventory.Save
+  database: {fileID: 11400000, guid: 09ec57aaa1747b748a9ad892b1792781, type: 2}
+  Container:
+    Items:
+    - parent: {fileID: 0}
+      ID: -1
+      item:
+        Name: 
+        Id: 0
+        buffs: []
+      amount: 0
+    - parent: {fileID: 0}
+      ID: -1
+      item:
+        Name: 
+        Id: 0
+        buffs: []
+      amount: 0
+    - parent: {fileID: 0}
+      ID: -1
+      item:
+        Name: 
+        Id: 0
+        buffs: []
+      amount: 0
+    - parent: {fileID: 0}
+      ID: -1
+      item:
+        Name: 
+        Id: 0
+        buffs: []
+      amount: 0
+    - parent: {fileID: 0}
+      ID: -1
+      item:
+        Name: 
+        Id: 0
+        buffs: []
+      amount: 0
+    - parent: {fileID: 0}
+      ID: -1
+      item:
+        Name: 
+        Id: 0
+        buffs: []
+      amount: 0
+    - parent: {fileID: 0}
+      ID: -1
+      item:
+        Name: 
+        Id: 0
+        buffs: []
+      amount: 0
+    - parent: {fileID: 0}
+      ID: -1
+      item:
+        Name: 
+        Id: 0
+        buffs: []
+      amount: 0
+    - parent: {fileID: 0}
+      ID: -1
+      item:
+        Name: 
+        Id: 0
+        buffs: []
+      amount: 0
