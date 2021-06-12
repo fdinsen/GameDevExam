@@ -78,7 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7263c34be4ce04479a33f938527bbb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 110617182087869006}
+  _anim: {fileID: 110617182087869006}
+  _correctOrientation: 0
+  _puzzleId: 1
 --- !u!1001 &7917555458191252028
 PrefabInstance:
   m_ObjectHideFlags: 0
