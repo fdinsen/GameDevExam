@@ -9,10 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d0d0b882a93c7847b1c694e9e097af5, type: 3}
+  m_Script: {fileID: 11500000, guid: bf1e1fca68232e2498e8e1eb7c0d354d, type: 3}
   m_Name: Small Mana Potion
   m_EditorClassIdentifier: 
-  prefab: {fileID: 4311661180733723021, guid: 4bae50669bc387644a04e0621c9b91e0, type: 3}
+  uiDisplay: {fileID: 7771185243529891863, guid: d07b803c54ae9fb4ebfc1e8a13b12f4c, type: 3}
+  stackable: 1
   type: 1
-  description: A vial of blue liquid, quite refreshing...
-  restoreManaValue: 20
+  description: A refreshing cool beverage enjoyed by many a mage.
+  data:
+    Name: 
+    Id: 11
+    buffs: []
