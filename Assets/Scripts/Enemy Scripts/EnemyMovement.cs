@@ -23,6 +23,7 @@ public class EnemyMovement : MonoBehaviour
     public int stunTimer = 0;
     private Vector3 rayOffset = new Vector3(0, .25f, 0);
     private Animator _animator;
+    private bool alive = true;
 
     void Start()
     {
@@ -37,7 +38,11 @@ public class EnemyMovement : MonoBehaviour
     {
         RaycastHit hit;
         //Debug.DrawRay(transform.position + rayOffset, _player.transform.position - transform.position);
-        if(Physics.Raycast(transform.position + rayOffset, _player.transform.position - transform.position, out hit, _blocksLOS))
+        if(!alive)
+        {
+            _playerIsWithinLOS = false;
+        }
+        else if(Physics.Raycast(transform.position + rayOffset, _player.transform.position - transform.position, out hit, _blocksLOS))
         {
             _playerIsWithinLOS = hit.collider.gameObject.CompareTag("Player");
             //Debug.Log(_playerIsWithinLOS);
@@ -248,6 +253,11 @@ public class EnemyMovement : MonoBehaviour
             stunTimer = stunTime;
             _animator.SetBool("Dizzy", true);
         }
+    }
+
+    public void Die()
+    {
+        alive = false;
     }
 
     private float GetRotationFromDirection(Direction dir)

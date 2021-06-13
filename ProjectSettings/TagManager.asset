@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - FxTemporaire
+  - LeverPuzzleDoor
   - Inventory
   layers:
   - Default
@@ -18,7 +19,7 @@ TagManager:
   - MovePoints
   - Projectile
   - Interactable
-  - 
+  - Stairs
   - 
   - 
   - 

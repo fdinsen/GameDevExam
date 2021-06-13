@@ -750,10 +750,10 @@ MonoBehaviour:
   MovePoint: {fileID: 1089126284}
   _whatStopsMovement:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 1224
   _blocksLOS:
     serializedVersion: 2
-    m_Bits: 255
+    m_Bits: 1279
   stunTimer: 0
 --- !u!65 &5968198520962242851
 BoxCollider:

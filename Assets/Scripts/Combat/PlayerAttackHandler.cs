@@ -169,4 +169,26 @@ public class PlayerAttackHandler : MonoBehaviour
         }
         _lightningBolt.SetActive(false);
     }
+
+    public void ToggleAttackControls(bool toggleOn)
+    {
+        if (toggleOn)
+        {
+            SetInput(m_playerAttackControls);
+        }
+        else
+        {
+            UnsetInput(m_playerAttackControls);
+        }
+    }
+
+    private void SetInput(PlayerAttackControls controls)
+    {
+        controls.DefaultInput.Enable();
+    }
+
+    private void UnsetInput(PlayerAttackControls controls)
+    {
+        controls.DefaultInput.Disable();
+    }
 }
