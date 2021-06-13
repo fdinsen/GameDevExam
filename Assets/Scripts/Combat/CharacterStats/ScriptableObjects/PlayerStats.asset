@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   setManually: 1
-  saveDataOnClose: 1
+  saveDataOnClose: 0
   maxHealth: 100
   currentHealth: 100
   maxWealth: 500

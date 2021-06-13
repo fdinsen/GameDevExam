@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FireplaceHandler : MonoBehaviour, IInteractable
 {
-    [SerializeField] private Item keyNeeded;
+    [SerializeField] private ItemObject keyNeeded;
     [SerializeField] private Animator _anim;
     [SerializeField] public ItemObject _item;
     [SerializeField] private GameObject _interactEffect;
@@ -20,7 +20,7 @@ public class FireplaceHandler : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        var key = _inventory.FindItemOnInventory(keyNeeded);
+        var key = _inventory.FindItemOnInventory(keyNeeded.data);
         if(key != null && _item != null)
         {
             _anim.SetTrigger("PickGem");

@@ -8,6 +8,8 @@ public class GemReceiver : MonoBehaviour, IInteractable
     public ItemObject keyItem;
     [SerializeField]
     private int _puzzleId;
+    [SerializeField]
+    private GameObject content;
 
     private bool activated = false;
     private CauldronPuzzleHandler puzzle;
@@ -16,6 +18,7 @@ public class GemReceiver : MonoBehaviour, IInteractable
     void Start()
     {
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().inventory;
+        content.SetActive(false);
     }
 
     void Awake()
@@ -38,6 +41,7 @@ public class GemReceiver : MonoBehaviour, IInteractable
                 item.RemoveItem();
                 activated = true;
                 puzzle.CheckCauldrons();
+                content.SetActive(true);
                 return;
             }
         }

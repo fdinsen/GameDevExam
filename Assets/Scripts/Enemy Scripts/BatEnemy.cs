@@ -168,8 +168,8 @@ public class BatEnemy : MonoBehaviour, IEnemy, IAttackable
         _enemyMovement.SetIgnoreLOS(false);
         _enemyMovement.Die();
         _animator.SetBool("Dead", true);
-        yield return new WaitForSeconds(5.0f);
         gameObject.layer = 0; // default
+        yield return new WaitForSeconds(5.0f);
         Destroy(gameObject);
     }
 }

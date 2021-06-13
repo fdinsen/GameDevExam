@@ -7,7 +7,7 @@ public class DoorHandler : MonoBehaviour, IInteractable
     [SerializeField] private Transform _door;
      private Animator _anim;
     [SerializeField] public bool Locked = false;
-    [SerializeField] private Item keyNeeded;
+    [SerializeField] private ItemObject keyNeeded;
     
     private bool _open = false;
     private InventoryObject inventory;
@@ -27,7 +27,7 @@ public class DoorHandler : MonoBehaviour, IInteractable
         {
             if(keyNeeded != null)
             {
-                var item = inventory.FindItemOnInventory(keyNeeded);
+                var item = inventory.FindItemOnInventory(keyNeeded.data);
                 if (item != null)
                 {
                     item.RemoveItem();

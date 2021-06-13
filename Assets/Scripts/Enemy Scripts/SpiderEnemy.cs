@@ -117,10 +117,9 @@ public class SpiderEnemy : MonoBehaviour, IEnemy, IAttackable
     public IEnumerator Die()
     {
         _enemyMovement.Die();
-        Debug.Log("DEAD");
         _animator.SetBool("Dead", true);
-        yield return new WaitForSeconds(5.0f);
         gameObject.layer = 0; // default
+        yield return new WaitForSeconds(5.0f);
         Destroy(gameObject);
     }
 }

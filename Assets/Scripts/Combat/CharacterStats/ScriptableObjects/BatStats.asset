@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: BatStats
   m_EditorClassIdentifier: 
   setManually: 1
-  saveDataOnClose: 1
-  maxHealth: 100
-  currentHealth: -21
+  saveDataOnClose: 0
+  maxHealth: 50
+  currentHealth: 50
   maxWealth: 500
   currentWealth: 0
   maxMana: 25
