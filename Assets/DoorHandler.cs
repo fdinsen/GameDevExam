@@ -7,8 +7,15 @@ public class DoorHandler : MonoBehaviour, IInteractable
     [SerializeField] private Transform _door;
     [SerializeField] private Animator _anim;
     [SerializeField] public bool Locked = false;
+    [SerializeField] private Item keyNeeded;
     
     private bool _open = false;
+    private InventoryObject inventory;
+
+    void Start()
+    {
+        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().inventory;
+    }
 
     public void Interact()
     {
@@ -18,9 +25,17 @@ public class DoorHandler : MonoBehaviour, IInteractable
         }
         else
         {
-            //Check for key
-            //If player has key, AccessDoor(); 
-            //If not, play locked effect
+            if(keyNeeded != null)
+            {
+                var item = inventory.FindItemOnInventory(keyNeeded);
+                if (item != null)
+                {
+                    item.RemoveItem();
+                    Locked = false;
+                    AccessDoor();
+                    return;
+                } 
+            }
             _anim.SetTrigger("Locked");
         }
     }
