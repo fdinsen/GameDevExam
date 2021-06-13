@@ -9,7 +9,7 @@ public class TableItemHandler : MonoBehaviour, IInteractable
     public ItemObject item;
     [SerializeField]
     public GameObject PoofEffect;
-    [HideInInspector]
+    [SerializeField]
     public GameObject TableItem;
     [SerializeField]
     public int quantity;
@@ -17,7 +17,7 @@ public class TableItemHandler : MonoBehaviour, IInteractable
     void Start()
     {
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().inventory;
-        TableItem = GameObject.FindGameObjectWithTag("TableItem");
+        //TableItem = GameObject.FindGameObjectWithTag("TableItem");
     }
 
     public void Interact()
