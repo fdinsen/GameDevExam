@@ -10,21 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf1e1fca68232e2498e8e1eb7c0d354d, type: 3}
-  m_Name: Crystal Ball
+  m_Name: Green Gem
   m_EditorClassIdentifier: 
-  uiDisplay: {fileID: 8609530406991562568, guid: d07b803c54ae9fb4ebfc1e8a13b12f4c, type: 3}
+  uiDisplay: {fileID: -7507653759127745917, guid: d07b803c54ae9fb4ebfc1e8a13b12f4c, type: 3}
   stackable: 0
-  type: 5
-  description: A crystal ball, prized possesion of some more eccentric mages.
+  type: 8
+  description: A shiny green gem.
   data:
     Name: 
-    Id: 2
-    buffs:
-    - attribute: 0
-      value: 0
-      min: 1
-      max: 5
-    - attribute: 1
-      value: 0
-      min: 1
-      max: 5
+    Id: 15
+    buffs: []

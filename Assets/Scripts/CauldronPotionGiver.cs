@@ -2,22 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TableItemHandler : MonoBehaviour, IInteractable
+public class CauldronPotionGiver : MonoBehaviour, IInteractable
 {
+
     InventoryObject inventory;
     [SerializeField]
     public ItemObject item;
-    [SerializeField]
-    public GameObject PoofEffect;
-    [HideInInspector]
-    public GameObject TableItem;
     [SerializeField]
     public int quantity;
 
     void Start()
     {
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().inventory;
-        TableItem = GameObject.FindGameObjectWithTag("TableItem");
     }
 
     public void Interact()
@@ -26,8 +22,6 @@ public class TableItemHandler : MonoBehaviour, IInteractable
         {
         Loot();
         item = null;
-        Instantiate(PoofEffect, transform.position, Quaternion.identity);
-        Destroy(TableItem);
         }
     }
 
