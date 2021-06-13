@@ -40,6 +40,8 @@ public class CharacterStats : MonoBehaviour
             characterDefinition.charExperience = 0;
             characterDefinition.charLevel = 1;
         }
+        HealthHandler.InvokeSetMaxHealth(characterDefinition.maxHealth);
+        HealthHandler.InvokeHealthChanged(characterDefinition.currentHealth);
     }
     #endregion
 
@@ -47,6 +49,7 @@ public class CharacterStats : MonoBehaviour
     public void ApplyHealth(int healthAmount)
     {
         characterDefinition.ApplyHealth(healthAmount);
+        HealthHandler.InvokeHealthChanged(characterDefinition.currentHealth);
     }
 
     public void ApplyMana(int manaAmount)
@@ -58,17 +61,53 @@ public class CharacterStats : MonoBehaviour
     {
         characterDefinition.GiveWealth(wealthAmount);
     }
+
+    public void IncreaseStats(Attributes attr, int amount)
+    {
+        if (attr == Attributes.maxHealth)
+        {
+            characterDefinition.maxHealth += amount;
+            HealthHandler.InvokeSetMaxHealth(characterDefinition.maxHealth);
+            HealthHandler.InvokeHealthChanged(characterDefinition.currentHealth);
+        }
+        else if (attr == Attributes.baseDamage)
+        {
+            characterDefinition.baseDamage += amount;
+        }
+        else if (attr == Attributes.baseResistance)
+        {
+            characterDefinition.baseResistance += amount;
+        }
+    }
     #endregion
 
     #region Stat Reducers
     public void TakeDamage(int amount)
     {
         characterDefinition.TakeDamage(amount);
+        HealthHandler.InvokeHealthChanged(characterDefinition.currentHealth);
     }
 
     public void TakeMana(int amount)
     {
         characterDefinition.TakeMana(amount);
+    }
+
+    public void DecreaseStats(Attributes attr, int amount)
+    {
+        if (attr == Attributes.maxHealth)
+        {
+            characterDefinition.maxHealth -= amount;
+            HealthHandler.InvokeSetMaxHealth(characterDefinition.maxHealth);
+        }
+        else if (attr == Attributes.baseDamage)
+        {
+            characterDefinition.baseDamage -= amount;
+        }
+        else if (attr == Attributes.baseResistance)
+        {
+            characterDefinition.baseResistance -= amount;
+        }
     }
     #endregion
 
@@ -86,6 +125,20 @@ public class CharacterStats : MonoBehaviour
     public float GetResistance()
     {
         return characterDefinition.currentResistance;
+    }
+
+    public float GetStat(Attributes attr)
+    {
+        switch (attr)
+        {
+            case Attributes.maxHealth:
+                return characterDefinition.maxHealth;
+            case Attributes.baseDamage:
+                return characterDefinition.baseDamage;
+            case Attributes.baseResistance:
+                return characterDefinition.baseResistance;
+        }
+        return 0f;
     }
     #endregion
 }

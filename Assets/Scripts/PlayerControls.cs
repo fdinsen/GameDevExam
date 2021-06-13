@@ -57,30 +57,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
-                },
-                {
-                    ""name"": ""SaveInventory"",
-                    ""type"": ""Button"",
-                    ""id"": ""566c74c1-4caa-4dca-8d02-f9699c0b1bd2"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""LoadInventory"",
-                    ""type"": ""Button"",
-                    ""id"": ""54efb69c-2191-4dbd-be85-72edb3a00a89"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""OpenInventory"",
-                    ""type"": ""Button"",
-                    ""id"": ""b8ccf799-b1ea-4d19-89df-7cf363217217"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -182,10 +158,53 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Inventory"",
+            ""id"": ""f50d4c72-2ca5-4b83-8104-23e2788697a7"",
+            ""actions"": [
+                {
+                    ""name"": ""LoadInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""5711b3ce-6d4d-4f9c-8363-107e1c797f8e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SaveInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""bd43be3c-8aec-4e03-b05e-aad51c7854aa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""OpenInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""e3f533e1-5e2b-497b-9c61-a13245eb4c7c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""837f2b1a-204f-402d-9714-7eff88248573"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c5f1c842-3cae-4132-aa01-13aff6fb22f8"",
+                    ""id"": ""ed109738-3736-4499-9ceb-7c6436558732"",
                     ""path"": ""<Keyboard>/f5"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
@@ -196,23 +215,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b56897df-690e-4c67-99a1-ab065a99cf72"",
+                    ""id"": ""7dc26232-8a92-4f0d-afba-f25013d303c2"",
                     ""path"": ""<Keyboard>/f9"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""LoadInventory"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4213aaae-65c9-4f4b-80bb-cd1fe2dc324d"",
-                    ""path"": ""<Keyboard>/i"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""OpenInventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -228,9 +236,11 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_DefaultInput_TurnLeft = m_DefaultInput.FindAction("TurnLeft", throwIfNotFound: true);
         m_DefaultInput_TurnRight = m_DefaultInput.FindAction("TurnRight", throwIfNotFound: true);
         m_DefaultInput_Interact = m_DefaultInput.FindAction("Interact", throwIfNotFound: true);
-        m_DefaultInput_SaveInventory = m_DefaultInput.FindAction("SaveInventory", throwIfNotFound: true);
-        m_DefaultInput_LoadInventory = m_DefaultInput.FindAction("LoadInventory", throwIfNotFound: true);
-        m_DefaultInput_OpenInventory = m_DefaultInput.FindAction("OpenInventory", throwIfNotFound: true);
+        // Inventory
+        m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
+        m_Inventory_LoadInventory = m_Inventory.FindAction("LoadInventory", throwIfNotFound: true);
+        m_Inventory_SaveInventory = m_Inventory.FindAction("SaveInventory", throwIfNotFound: true);
+        m_Inventory_OpenInventory = m_Inventory.FindAction("OpenInventory", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -285,9 +295,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_DefaultInput_TurnLeft;
     private readonly InputAction m_DefaultInput_TurnRight;
     private readonly InputAction m_DefaultInput_Interact;
-    private readonly InputAction m_DefaultInput_SaveInventory;
-    private readonly InputAction m_DefaultInput_LoadInventory;
-    private readonly InputAction m_DefaultInput_OpenInventory;
     public struct DefaultInputActions
     {
         private @PlayerControls m_Wrapper;
@@ -297,9 +304,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @TurnLeft => m_Wrapper.m_DefaultInput_TurnLeft;
         public InputAction @TurnRight => m_Wrapper.m_DefaultInput_TurnRight;
         public InputAction @Interact => m_Wrapper.m_DefaultInput_Interact;
-        public InputAction @SaveInventory => m_Wrapper.m_DefaultInput_SaveInventory;
-        public InputAction @LoadInventory => m_Wrapper.m_DefaultInput_LoadInventory;
-        public InputAction @OpenInventory => m_Wrapper.m_DefaultInput_OpenInventory;
         public InputActionMap Get() { return m_Wrapper.m_DefaultInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -324,15 +328,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnInteract;
-                @SaveInventory.started -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnSaveInventory;
-                @SaveInventory.performed -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnSaveInventory;
-                @SaveInventory.canceled -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnSaveInventory;
-                @LoadInventory.started -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnLoadInventory;
-                @LoadInventory.performed -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnLoadInventory;
-                @LoadInventory.canceled -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnLoadInventory;
-                @OpenInventory.started -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnOpenInventory;
-                @OpenInventory.performed -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnOpenInventory;
-                @OpenInventory.canceled -= m_Wrapper.m_DefaultInputActionsCallbackInterface.OnOpenInventory;
             }
             m_Wrapper.m_DefaultInputActionsCallbackInterface = instance;
             if (instance != null)
@@ -352,19 +347,59 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
-                @SaveInventory.started += instance.OnSaveInventory;
-                @SaveInventory.performed += instance.OnSaveInventory;
-                @SaveInventory.canceled += instance.OnSaveInventory;
+            }
+        }
+    }
+    public DefaultInputActions @DefaultInput => new DefaultInputActions(this);
+
+    // Inventory
+    private readonly InputActionMap m_Inventory;
+    private IInventoryActions m_InventoryActionsCallbackInterface;
+    private readonly InputAction m_Inventory_LoadInventory;
+    private readonly InputAction m_Inventory_SaveInventory;
+    private readonly InputAction m_Inventory_OpenInventory;
+    public struct InventoryActions
+    {
+        private @PlayerControls m_Wrapper;
+        public InventoryActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @LoadInventory => m_Wrapper.m_Inventory_LoadInventory;
+        public InputAction @SaveInventory => m_Wrapper.m_Inventory_SaveInventory;
+        public InputAction @OpenInventory => m_Wrapper.m_Inventory_OpenInventory;
+        public InputActionMap Get() { return m_Wrapper.m_Inventory; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(InventoryActions set) { return set.Get(); }
+        public void SetCallbacks(IInventoryActions instance)
+        {
+            if (m_Wrapper.m_InventoryActionsCallbackInterface != null)
+            {
+                @LoadInventory.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnLoadInventory;
+                @LoadInventory.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnLoadInventory;
+                @LoadInventory.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnLoadInventory;
+                @SaveInventory.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnSaveInventory;
+                @SaveInventory.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnSaveInventory;
+                @SaveInventory.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnSaveInventory;
+                @OpenInventory.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnOpenInventory;
+                @OpenInventory.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnOpenInventory;
+                @OpenInventory.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnOpenInventory;
+            }
+            m_Wrapper.m_InventoryActionsCallbackInterface = instance;
+            if (instance != null)
+            {
                 @LoadInventory.started += instance.OnLoadInventory;
                 @LoadInventory.performed += instance.OnLoadInventory;
                 @LoadInventory.canceled += instance.OnLoadInventory;
+                @SaveInventory.started += instance.OnSaveInventory;
+                @SaveInventory.performed += instance.OnSaveInventory;
+                @SaveInventory.canceled += instance.OnSaveInventory;
                 @OpenInventory.started += instance.OnOpenInventory;
                 @OpenInventory.performed += instance.OnOpenInventory;
                 @OpenInventory.canceled += instance.OnOpenInventory;
             }
         }
     }
-    public DefaultInputActions @DefaultInput => new DefaultInputActions(this);
+    public InventoryActions @Inventory => new InventoryActions(this);
     public interface IDefaultInputActions
     {
         void OnOnPress(InputAction.CallbackContext context);
@@ -372,8 +407,11 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnTurnLeft(InputAction.CallbackContext context);
         void OnTurnRight(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnSaveInventory(InputAction.CallbackContext context);
+    }
+    public interface IInventoryActions
+    {
         void OnLoadInventory(InputAction.CallbackContext context);
+        void OnSaveInventory(InputAction.CallbackContext context);
         void OnOpenInventory(InputAction.CallbackContext context);
     }
 }

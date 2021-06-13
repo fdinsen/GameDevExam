@@ -519,10 +519,10 @@ MonoBehaviour:
   MovePoint: {fileID: 652142509}
   _whatStopsMovement:
     serializedVersion: 2
-    m_Bits: 264
+    m_Bits: 1224
   _blocksLOS:
     serializedVersion: 2
-    m_Bits: 255
+    m_Bits: 1279
   stunTimer: 0
 --- !u!114 &532453045
 MonoBehaviour:

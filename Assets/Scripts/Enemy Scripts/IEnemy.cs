@@ -8,5 +8,5 @@ public interface IEnemy
     public abstract void DoAttack(Vector3 currentPosition, Vector3 target);
     public abstract void Move();
 
-    public abstract void Die();
+    public abstract IEnumerator Die();
 }
