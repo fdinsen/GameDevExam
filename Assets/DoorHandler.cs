@@ -5,7 +5,7 @@ using UnityEngine;
 public class DoorHandler : MonoBehaviour, IInteractable
 {
     [SerializeField] private Transform _door;
-    [SerializeField] private Animator _anim;
+     private Animator _anim;
     [SerializeField] public bool Locked = false;
     [SerializeField] private Item keyNeeded;
     

@@ -8,6 +8,8 @@ public class TreasureChestHandler : MonoBehaviour, IInteractable
     [SerializeField]
     public ItemObject item;
     private Animator _anim;
+    [SerializeField]
+    public int quantity = 1;
 
     void Start()
     {
@@ -28,6 +30,6 @@ public class TreasureChestHandler : MonoBehaviour, IInteractable
     public void Loot()
     {
         Item _item = new Item(item);
-        inventory.AddItem(_item, 1);
+        inventory.AddItem(_item, quantity);
     }
 }
