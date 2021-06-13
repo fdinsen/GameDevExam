@@ -157,15 +157,19 @@ public class BatEnemy : MonoBehaviour, IEnemy, IAttackable
         }
         _stats.TakeDamage(attack.Damage);
         _enemyMovement.SetStunTime(attack.StunTime);
-        Debug.LogFormat("{0} attacked {1} for {2} damage.", attacker.name, name, attack.Damage);
         if(_stats.GetHealth() <= 0)
         {
-            Die();
+            StartCoroutine(Die());
         } 
     }
 
-    public void Die()
+    public IEnumerator Die()
     {
-        throw new System.NotImplementedException();
+        _enemyMovement.SetIgnoreLOS(false);
+        _enemyMovement.Die();
+        _animator.SetBool("Dead", true);
+        yield return new WaitForSeconds(5.0f);
+        gameObject.layer = 0; // default
+        Destroy(gameObject);
     }
 }

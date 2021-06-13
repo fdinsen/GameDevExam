@@ -59,6 +59,28 @@ public class TurnBasedPlayerMovement : MonoBehaviour
         m_playerControls.DefaultInput.Interact.performed += ctx => Interact();
     }
 
+    void SetInput(PlayerControls playerControls)
+    {
+        playerControls.DefaultInput.Enable();
+    }
+
+    void UnsetInput(PlayerControls playerControls)
+    {
+        playerControls.DefaultInput.Disable();
+    }
+
+    public void ToggleMovementControls(bool toggleOn)
+    {
+        if(toggleOn)
+        {
+            SetInput(m_playerControls);
+        }
+        else
+        {
+            UnsetInput(m_playerControls);
+        }
+    }
+
     private void Update()
     {
         Move();

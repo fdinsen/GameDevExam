@@ -147,6 +147,71 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Inventory",
+            "id": "f50d4c72-2ca5-4b83-8104-23e2788697a7",
+            "actions": [
+                {
+                    "name": "LoadInventory",
+                    "type": "Button",
+                    "id": "5711b3ce-6d4d-4f9c-8363-107e1c797f8e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SaveInventory",
+                    "type": "Button",
+                    "id": "bd43be3c-8aec-4e03-b05e-aad51c7854aa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "OpenInventory",
+                    "type": "Button",
+                    "id": "e3f533e1-5e2b-497b-9c61-a13245eb4c7c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "837f2b1a-204f-402d-9714-7eff88248573",
+                    "path": "<Keyboard>/i",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ed109738-3736-4499-9ceb-7c6436558732",
+                    "path": "<Keyboard>/f5",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SaveInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7dc26232-8a92-4f0d-afba-f25013d303c2",
+                    "path": "<Keyboard>/f9",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LoadInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
