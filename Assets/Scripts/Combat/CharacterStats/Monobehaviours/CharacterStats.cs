@@ -6,6 +6,7 @@ using UnityEngine;
 public class CharacterStats : MonoBehaviour
 {
     public CharacterStats_SO characterDefinition;
+    public bool isPlayer = false;
 
     #region Constructors
     public CharacterStats()
@@ -40,8 +41,11 @@ public class CharacterStats : MonoBehaviour
             characterDefinition.charExperience = 0;
             characterDefinition.charLevel = 1;
         }
-        HealthHandler.InvokeSetMaxHealth(characterDefinition.maxHealth);
-        HealthHandler.InvokeHealthChanged(characterDefinition.currentHealth);
+        if(isPlayer)
+        {
+            HealthHandler.InvokeSetMaxHealth(characterDefinition.maxHealth, characterDefinition.currentHealth);
+        }
+        
     }
     #endregion
 
@@ -49,7 +53,11 @@ public class CharacterStats : MonoBehaviour
     public void ApplyHealth(int healthAmount)
     {
         characterDefinition.ApplyHealth(healthAmount);
-        HealthHandler.InvokeHealthChanged(characterDefinition.currentHealth);
+
+        if(isPlayer)
+        {
+            HealthHandler.InvokeHealthChanged(characterDefinition.currentHealth);
+        }
     }
 
     public void ApplyMana(int manaAmount)
@@ -67,8 +75,11 @@ public class CharacterStats : MonoBehaviour
         if (attr == Attributes.maxHealth)
         {
             characterDefinition.maxHealth += amount;
-            HealthHandler.InvokeSetMaxHealth(characterDefinition.maxHealth);
-            HealthHandler.InvokeHealthChanged(characterDefinition.currentHealth);
+
+            if(isPlayer)
+            {
+                HealthHandler.InvokeSetMaxHealth(characterDefinition.maxHealth, characterDefinition.currentHealth);
+            }
         }
         else if (attr == Attributes.baseDamage)
         {
@@ -85,7 +96,11 @@ public class CharacterStats : MonoBehaviour
     public void TakeDamage(int amount)
     {
         characterDefinition.TakeDamage(amount);
-        HealthHandler.InvokeHealthChanged(characterDefinition.currentHealth);
+
+        if(isPlayer)
+        {
+            HealthHandler.InvokeHealthChanged(characterDefinition.currentHealth);
+        }
     }
 
     public void TakeMana(int amount)
@@ -98,7 +113,11 @@ public class CharacterStats : MonoBehaviour
         if (attr == Attributes.maxHealth)
         {
             characterDefinition.maxHealth -= amount;
-            HealthHandler.InvokeSetMaxHealth(characterDefinition.maxHealth);
+
+            if(isPlayer)
+            {
+                HealthHandler.InvokeSetMaxHealth(characterDefinition.maxHealth, characterDefinition.currentHealth);
+            }
         }
         else if (attr == Attributes.baseDamage)
         {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum ItemType 
 {
+    Key,
     HealthPotion,
     ManaPotion,
     Necklace,
@@ -17,9 +18,9 @@ public enum ItemType
 
 public enum Attributes
 {
-maxHealth,
-baseDamage,
-baseResistance
+    maxHealth,
+    baseDamage,
+    baseResistance
 }
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory System/Items/Item")]

@@ -12,8 +12,9 @@ public class HealthHandler : MonoBehaviour
     [SerializeField] private bool useHSVColor = false;
 
     public delegate void SetHealthEvent(int newhealth);
+    public delegate void SetMaxHealthEvent(int maxhealth, int currenthealth);
     public static event SetHealthEvent HealthChanged;
-    public static event SetHealthEvent SetMaxPlayerHealth;
+    public static event SetMaxHealthEvent SetMaxPlayerHealth;
 
     private int maxHealth;
 
@@ -22,9 +23,9 @@ public class HealthHandler : MonoBehaviour
         HealthChanged.Invoke(health);
     }
 
-    public static void InvokeSetMaxHealth(int health)
+    public static void InvokeSetMaxHealth(int maxhealth, int currenthealth)
     {
-        SetMaxPlayerHealth.Invoke(health);
+        SetMaxPlayerHealth.Invoke(maxhealth, currenthealth);
     }
 
     private void OnEnable()
@@ -39,9 +40,10 @@ public class HealthHandler : MonoBehaviour
         SetMaxPlayerHealth -= SetMaxHealth;
     }
 
-    private void SetMaxHealth(int health)
+    private void SetMaxHealth(int maxhealth, int currenthealth)
     {
-        maxHealth = health;
+        maxHealth = maxhealth;
+        UpdateHealth(currenthealth);
     }
 
     private void UpdateHealth(int newhealth)

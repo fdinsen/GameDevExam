@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4364c8c27c003fe46ad6e1bb210f6ca3, type: 3}
   m_Name: BatStats
   m_EditorClassIdentifier: 
-  setManually: 0
+  setManually: 1
   saveDataOnClose: 0
-  maxHealth: 100
+  maxHealth: 50
   currentHealth: 50
   maxWealth: 500
   currentWealth: 0

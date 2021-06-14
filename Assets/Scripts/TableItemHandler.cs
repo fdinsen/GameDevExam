@@ -9,14 +9,15 @@ public class TableItemHandler : MonoBehaviour, IInteractable
     public ItemObject item;
     [SerializeField]
     public GameObject PoofEffect;
-    [HideInInspector]
+    [SerializeField]
     public GameObject TableItem;
+    [SerializeField]
+    public int quantity;
 
-    // Start is called before the first frame update
     void Start()
     {
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().inventory;
-        TableItem = GameObject.FindGameObjectWithTag("TableItem");
+        //TableItem = GameObject.FindGameObjectWithTag("TableItem");
     }
 
     public void Interact()
@@ -33,6 +34,6 @@ public class TableItemHandler : MonoBehaviour, IInteractable
     public void Loot()
     {
         Item _item = new Item(item);
-        inventory.AddItem(_item, 1);
+        inventory.AddItem(_item, quantity);
     }
 }
