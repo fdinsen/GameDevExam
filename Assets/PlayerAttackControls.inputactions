@@ -1,0 +1,88 @@
+{
+    "name": "PlayerAttackControls",
+    "maps": [
+        {
+            "name": "DefaultInput",
+            "id": "bf618987-b184-48c8-98c3-d82eb9bb75e4",
+            "actions": [
+                {
+                    "name": "BaseAttack",
+                    "type": "Button",
+                    "id": "f5cbdbe3-081e-434b-89c1-e3633946ab24",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "AlternateAttack",
+                    "type": "Button",
+                    "id": "d1c8e8fd-659f-418b-9faf-672e9eef5154",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "AttackModifier",
+                    "type": "PassThrough",
+                    "id": "2f2bf460-a60b-4963-aa14-7eb9ee12e70f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Hold"
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "90f9010a-6afe-4e91-864c-298a92340318",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BaseAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c320ece7-27ef-42ba-a9e4-7521c7b0b2f1",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard/Mouse",
+                    "action": "AlternateAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "42841b25-8376-449f-972e-48e3168fc1b8",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard/Mouse",
+                    "action": "AttackModifier",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Keyboard/Mouse",
+            "bindingGroup": "Keyboard/Mouse",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
