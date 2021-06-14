@@ -270,7 +270,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1592125234692788}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -502,6 +502,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slimeAttack: {fileID: 11400000, guid: 74f0b9ef4ff43074785d1f9b5822cf8e, type: 2}
+  attackable:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &1979393283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -537,6 +540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDefinition: {fileID: 11400000, guid: 5cbd121101e107a4f957d2f083ce96a0, type: 2}
+  isPlayer: 0
 --- !u!65 &532453046
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using DigitalRuby.LightningBolt;
+using TMPro;
 
-public class PlayerAttackHandler : MonoBehaviour
+public class PlayerAttackHandler : MonoBehaviour, IAttackable
 {
     [SerializeField] private AttackDefinition primaryAttack;
     [SerializeField] private AttackDefinition secondaryAttack;
@@ -16,7 +18,7 @@ public class PlayerAttackHandler : MonoBehaviour
     [SerializeField] private float lightningDelay = 1f;
 
     private PlayerAttackControls m_playerAttackControls;
-    private CharacterStats stats;
+    private CharacterStats _stats;
     private TurnBasedPlayerMovement playerMovement;
     private Animator _animator;
 
@@ -35,7 +37,7 @@ public class PlayerAttackHandler : MonoBehaviour
         m_playerAttackControls = new PlayerAttackControls();
         m_playerAttackControls.DefaultInput.BaseAttack.performed += ctx => HandlePrimaryAttack();
         m_playerAttackControls.DefaultInput.AlternateAttack.performed += ctx => HandleSecondaryAttack();
-        stats = GetComponent<CharacterStats>();
+        _stats = GetComponent<CharacterStats>();
         playerMovement = GetComponent<TurnBasedPlayerMovement>();
         _animator = GetComponent<Animator>();
     }
@@ -132,7 +134,7 @@ public class PlayerAttackHandler : MonoBehaviour
         Projectile projScript = projectileInst.GetComponent<Projectile>();
         projScript.MoveAmount = transform.forward * playerMovement.GetMoveDistance();
         projScript.Attack = modifiedPrimaryAttack;
-        projScript.AttackerStats = stats;
+        projScript.AttackerStats = _stats;
 
         _animator.SetTrigger("PrimaryMeleeAttack");
     }
@@ -143,7 +145,7 @@ public class PlayerAttackHandler : MonoBehaviour
         if (isAttackable)
         {
             GameObject target = hit.collider.gameObject;
-            var attack = attackType.CreateAttack(stats, target.GetComponent<CharacterStats>());
+            var attack = attackType.CreateAttack(_stats, target.GetComponent<CharacterStats>());
 
             var attackables = target.GetComponentsInChildren(typeof(IAttackable));
 
@@ -190,5 +192,32 @@ public class PlayerAttackHandler : MonoBehaviour
     private void UnsetInput(PlayerAttackControls controls)
     {
         controls.DefaultInput.Disable();
+    }
+
+    public void OnAttacked(GameObject attacker, Attack attack)
+    {
+        _animator.SetTrigger("Hit");
+        if (attack.IsCritical)
+        {
+            Debug.Log("Critical Damage!!");
+        }
+        _stats.TakeDamage(attack.Damage);
+        if (_stats.GetHealth() <= 0)
+        {
+            StartCoroutine(Die());
+        }
+    }
+
+    private IEnumerator Die()
+    {
+        _animator.SetBool("Dead", true);
+        UnsetInput(m_playerAttackControls);
+        playerMovement.ToggleMovementControls(false);
+        GameObject.FindGameObjectWithTag("Canvas").SetActive(false);
+        GameObject.FindGameObjectWithTag("DeathText")
+            .GetComponent<TextMeshProUGUI>()
+            .SetText("You Died!");
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene(0);
     }
 }

@@ -15,7 +15,7 @@ MonoBehaviour:
   setManually: 1
   saveDataOnClose: 0
   maxHealth: 50
-  currentHealth: -129
+  currentHealth: 50
   maxWealth: 500
   currentWealth: 0
   maxMana: 25

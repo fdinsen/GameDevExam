@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyMovement))]
 public class SlimeEnemy : MonoBehaviour, IEnemy, IAttackable
 {
     [SerializeField] private AttackDefinition slimeAttack;
+    [SerializeField] private LayerMask attackable;
 
     private CharacterStats _stats;
     private Animator _animator;
@@ -23,7 +23,7 @@ public class SlimeEnemy : MonoBehaviour, IEnemy, IAttackable
     {
         RaycastHit hit;
         transform.LookAt(target);
-        if(Physics.Raycast(currentPosition, target, out hit, slimeAttack.Range))
+        if (Physics.Raycast(currentPosition, transform.forward, out hit, slimeAttack.Range, attackable))
         {
             bool isAttackable = hit.collider.GetComponent(typeof(IAttackable)) != null;
             if (isAttackable)
@@ -40,11 +40,6 @@ public class SlimeEnemy : MonoBehaviour, IEnemy, IAttackable
             }
         }
         _animator.SetTrigger("Attack");
-    }
-
-    void Update()
-    {
-        Debug.DrawLine(transform.position, _enemyMovement.GetPlayerMovePoint().position * (slimeAttack.Range * 1.5f));
     }
 
     public bool IsWithinRange(Vector3 currentPosition, Vector3 playerPos)

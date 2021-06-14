@@ -10,6 +10,7 @@ public class GemReceiver : MonoBehaviour, IInteractable
     private int _puzzleId;
     [SerializeField]
     private GameObject content;
+    [SerializeField] private GameObject _interactEffect;
 
     private bool activated = false;
     private CauldronPuzzleHandler puzzle;
@@ -42,6 +43,7 @@ public class GemReceiver : MonoBehaviour, IInteractable
                 activated = true;
                 puzzle.CheckCauldrons();
                 content.SetActive(true);
+                _interactEffect?.SetActive(false);
                 return;
             }
         }

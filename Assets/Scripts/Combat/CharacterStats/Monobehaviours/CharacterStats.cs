@@ -45,6 +45,7 @@ public class CharacterStats : MonoBehaviour
         {
             HealthHandler.InvokeSetMaxHealth(characterDefinition.maxHealth, characterDefinition.currentHealth);
         }
+        characterDefinition.currentHealth = characterDefinition.maxHealth;
         
     }
     #endregion

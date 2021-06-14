@@ -10,6 +10,7 @@ public class TreasureChestHandler : MonoBehaviour, IInteractable
     private Animator _anim;
     [SerializeField]
     public int quantity = 1;
+    [SerializeField] private GameObject _interactEffect;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class TreasureChestHandler : MonoBehaviour, IInteractable
             Loot();
         _anim.SetTrigger("Open");
         item = null;
+            _interactEffect?.SetActive(false);
         }
     }
 

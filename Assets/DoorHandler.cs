@@ -8,6 +8,7 @@ public class DoorHandler : MonoBehaviour, IInteractable
      private Animator _anim;
     [SerializeField] public bool Locked = false;
     [SerializeField] private ItemObject keyNeeded;
+    [SerializeField] private GameObject _interactEffect;
     
     private bool _open = false;
     private InventoryObject inventory;
@@ -47,10 +48,12 @@ public class DoorHandler : MonoBehaviour, IInteractable
 
         if (_open)
         {
+            _interactEffect?.SetActive(false);
             gameObject.layer = 0;
         }
         else
         {
+            _interactEffect?.SetActive(true);
             gameObject.layer = 3; //BlocksMovement
         }
     }

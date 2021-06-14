@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PrimaryRangedAttack
   m_EditorClassIdentifier: 
   Cooldown: 0
-  Range: 1
+  Range: 0.5
   minDamage: 2
   maxDamage: 5
   criticalMultiplier: 2

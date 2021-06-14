@@ -29,7 +29,7 @@ public class BatEnemy : MonoBehaviour, IEnemy, IAttackable
     {
         RaycastHit hit;
         transform.LookAt(target);
-        if (Physics.Raycast(currentPosition, target, out hit, batAttack.Range))
+        if (Physics.Raycast(currentPosition, transform.forward, out hit, batAttack.Range * 2))
         {
             bool isAttackable = hit.collider.GetComponent(typeof(IAttackable)) != null;
             if (isAttackable)

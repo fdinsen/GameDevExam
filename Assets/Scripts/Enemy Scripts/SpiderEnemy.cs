@@ -22,7 +22,7 @@ public class SpiderEnemy : MonoBehaviour, IEnemy, IAttackable
     {
         RaycastHit hit;
         transform.LookAt(target);
-        if (Physics.Raycast(currentPosition, target, out hit, spiderAttack.Range))
+        if (Physics.Raycast(currentPosition, transform.forward, out hit, spiderAttack.Range))
         {
             bool isAttackable = hit.collider.GetComponent(typeof(IAttackable)) != null;
             if (isAttackable)
