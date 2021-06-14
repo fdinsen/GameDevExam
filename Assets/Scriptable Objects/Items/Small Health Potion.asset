@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: -3237844493445452581, guid: d07b803c54ae9fb4ebfc1e8a13b12f4c, type: 3}
   stackable: 1
-  type: 0
+  type: 1
   description: Liquid health, recommended by 4 out of 5 certified alchemists.
   data:
     Name: 

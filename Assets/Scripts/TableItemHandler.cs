@@ -13,6 +13,7 @@ public class TableItemHandler : MonoBehaviour, IInteractable
     public GameObject TableItem;
     [SerializeField]
     public int quantity;
+    [SerializeField] private AudioSource _pickup;
 
     void Start()
     {
@@ -24,10 +25,11 @@ public class TableItemHandler : MonoBehaviour, IInteractable
     {
         if(item != null)
         {
-        Loot();
-        item = null;
-        Instantiate(PoofEffect, transform.position, Quaternion.identity);
-        Destroy(TableItem);
+            _pickup?.Play();
+            Loot();
+            item = null;
+            Instantiate(PoofEffect, transform.position, Quaternion.identity);
+            Destroy(TableItem);
         }
     }
 

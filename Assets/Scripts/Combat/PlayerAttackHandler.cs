@@ -17,6 +17,8 @@ public class PlayerAttackHandler : MonoBehaviour, IAttackable
     [SerializeField] private float lightningDuration = 2f;
     [SerializeField] private float lightningDelay = 1f;
 
+    [SerializeField] private AudioSource deathSound;
+
     private PlayerAttackControls m_playerAttackControls;
     private CharacterStats _stats;
     private TurnBasedPlayerMovement playerMovement;
@@ -210,6 +212,7 @@ public class PlayerAttackHandler : MonoBehaviour, IAttackable
 
     private IEnumerator Die()
     {
+        deathSound?.Play();
         _animator.SetBool("Dead", true);
         UnsetInput(m_playerAttackControls);
         playerMovement.ToggleMovementControls(false);
@@ -217,7 +220,7 @@ public class PlayerAttackHandler : MonoBehaviour, IAttackable
         GameObject.FindGameObjectWithTag("DeathText")
             .GetComponent<TextMeshProUGUI>()
             .SetText("You Died!");
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(0);
     }
 }

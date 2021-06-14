@@ -30,14 +30,39 @@ public class DynamicInterface : UserInterface
             AddEvent(obj, EventTriggerType.BeginDrag, delegate { OnDragStart(obj); });
             AddEvent(obj, EventTriggerType.EndDrag, delegate { OnDragEnd(obj); });
             AddEvent(obj, EventTriggerType.Drag, delegate { OnDrag(obj); });
+            AddEvent(obj, EventTriggerType.PointerClick, delegate { OnClick(obj); });
             inventory.GetSlots[i].slotDisplay = obj;
             slotsOnInterface.Add(obj, inventory.GetSlots[i]);
         }
     }
 
-        private Vector3 GetPosition(int i)
+    public void OnClick(GameObject obj)
     {
-        return new Vector3(X_START + (X_SPACE_BETWEEN_ITEM * (i % NUMBER_OF_COLUMN)), Y_START + (-Y_SPACE_BETWEEN_ITEM * (i/NUMBER_OF_COLUMN)), 0f);
+        InventorySlot mouseHoverSlotData = MouseData.interfaceMouseIsOver.slotsOnInterface[MouseData.slotHoveredOver];
+        if (mouseHoverSlotData.ItemObject == null)
+            return;
+        if (mouseHoverSlotData.ItemObject.type == ItemType.HealthPotion)
+        {
+            var playerObj = GameObject.FindGameObjectWithTag("Player");
+            var stats = playerObj.GetComponent<Player>();
+            if (stats.CharStats.characterDefinition.currentHealth == stats.CharStats.characterDefinition.maxHealth)
+                return;
+
+            stats.Heal(50);
+            if (mouseHoverSlotData.amount == 1)
+            {
+                slotsOnInterface[obj].RemoveItem();
+            }
+            else
+            {
+                slotsOnInterface[obj].DetractAmount(1);
+            }
+            return;
+        }
     }
 
+    private Vector3 GetPosition(int i)
+    {
+        return new Vector3(X_START + (X_SPACE_BETWEEN_ITEM * (i % NUMBER_OF_COLUMN)), Y_START + (-Y_SPACE_BETWEEN_ITEM * (i / NUMBER_OF_COLUMN)), 0f);
+    }
 }

@@ -9,7 +9,9 @@ public class DoorHandler : MonoBehaviour, IInteractable
     [SerializeField] public bool Locked = false;
     [SerializeField] private ItemObject keyNeeded;
     [SerializeField] private GameObject _interactEffect;
-    
+    [SerializeField] private AudioSource _openSound;
+    [SerializeField] private AudioSource _lockedSound;
+
     private bool _open = false;
     private InventoryObject inventory;
 
@@ -37,6 +39,7 @@ public class DoorHandler : MonoBehaviour, IInteractable
                     return;
                 } 
             }
+            _lockedSound?.Play();
             _anim.SetTrigger("Locked");
         }
     }
@@ -45,6 +48,7 @@ public class DoorHandler : MonoBehaviour, IInteractable
     {
         _open = !_open;
         _anim.SetBool("Open", _open);
+        _openSound?.Play();
 
         if (_open)
         {

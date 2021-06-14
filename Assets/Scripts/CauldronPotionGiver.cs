@@ -7,9 +7,11 @@ public class CauldronPotionGiver : MonoBehaviour, IInteractable
 
     InventoryObject inventory;
     [SerializeField]
-    public ItemObject item;
+    private ItemObject item;
     [SerializeField]
-    public int quantity;
+    private int quantity;
+    [SerializeField] private GameObject[] _content;
+    [SerializeField] private AudioSource _pickup;
 
     void Start()
     {
@@ -20,8 +22,13 @@ public class CauldronPotionGiver : MonoBehaviour, IInteractable
     {
         if(item != null)
         {
-        Loot();
-        item = null;
+            Loot();
+            item = null;
+            _pickup?.Play();
+            foreach(var content in _content)
+            {
+                content.SetActive(false);
+            }
         }
     }
 
