@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Cooldown: 0
   Range: 0.75
-  minDamage: 2
-  maxDamage: 5
+  minDamage: 1
+  maxDamage: 2
   criticalMultiplier: 1.5
   criticalChance: 0.3
+  stunTime: 0

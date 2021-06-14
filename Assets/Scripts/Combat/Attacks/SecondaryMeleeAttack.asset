@@ -18,3 +18,4 @@ MonoBehaviour:
   maxDamage: 3
   criticalMultiplier: 2
   criticalChance: 0.3
+  stunTime: 0

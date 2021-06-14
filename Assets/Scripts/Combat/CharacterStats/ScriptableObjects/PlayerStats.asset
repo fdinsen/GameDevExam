@@ -20,8 +20,8 @@ MonoBehaviour:
   currentWealth: 0
   maxMana: 25
   currentMana: 10
-  baseDamage: 2
-  currentDamage: 2
+  baseDamage: 1
+  currentDamage: 1
   baseResistance: 0
   currentResistance: 0
   maxEncumbrance: 50
