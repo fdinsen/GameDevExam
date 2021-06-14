@@ -13,7 +13,7 @@ public class BossCutsceneEnter : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-
+        StartCoroutine(PlayCutscene());
     }
 
     private IEnumerator PlayCutscene()
