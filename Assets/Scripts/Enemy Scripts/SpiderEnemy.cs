@@ -9,6 +9,9 @@ public class SpiderEnemy : MonoBehaviour, IEnemy, IAttackable
     [SerializeField] Vector3[] longMoves;
     [SerializeField] private AttackDefinition spiderAttack;
 
+    [SerializeField] private AudioSource _attackSound;
+    [SerializeField] private AudioSource _dieSound;
+
     private CharacterStats _stats;
     private Animator _animator;
     private EnemyMovement _enemyMovement;
@@ -38,6 +41,8 @@ public class SpiderEnemy : MonoBehaviour, IEnemy, IAttackable
                 }
             }
         }
+
+        _attackSound?.Play();
         _animator.SetTrigger("Attack");
     }
 
@@ -116,6 +121,7 @@ public class SpiderEnemy : MonoBehaviour, IEnemy, IAttackable
 
     public IEnumerator Die()
     {
+        _dieSound?.Play();
         _enemyMovement.Die();
         _animator.SetBool("Dead", true);
         gameObject.layer = 0; // default

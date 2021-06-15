@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float _moveTime = .2f;
     [SerializeField] private LayerMask _whatStopsMovement;
     [SerializeField] private GameObject explosion;
+    [SerializeField] private AudioSource explosionSound;
 
     public AttackDefinition Attack { get; set; }
     public CharacterStats AttackerStats { get; set; }
@@ -54,6 +55,14 @@ public class Projectile : MonoBehaviour
                 }
             }
         }
+
+        StartCoroutine(Explode());
+    }
+
+    private IEnumerator Explode()
+    {
+        explosionSound?.Play();
+        yield return new WaitForSeconds(.2f);
         Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
