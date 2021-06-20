@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,8 @@ public class Player : MonoBehaviour
     public InventoryObject equipment;
 
     public Attribute[] attributes;
+    public CharacterStats CharStats;
+    public AudioSource potionSound;
 
     private GameObject[] UIElements;
     private GameObject player;
@@ -16,7 +19,6 @@ public class Player : MonoBehaviour
     private PlayerAttackHandler attacks;
     private bool inventoryIsOpen = true;
 
-    public CharacterStats CharStats;
 
     private void Start()
     {
@@ -36,8 +38,8 @@ public class Player : MonoBehaviour
             equipment.GetSlots[i].OnBeforeUpdate += OnBeforeSlotUpdate;
             equipment.GetSlots[i].OnAfterUpdate += OnAfterSlotUpdate;
         }
-
         ToggleInventory();
+        //Invoke("ToggleInventory", .05f);
     }
 
     public void OnBeforeSlotUpdate(InventorySlot _slot)
@@ -131,10 +133,22 @@ public class Player : MonoBehaviour
             {
                 subelement.enabled = inventoryIsOpen;
             }
+
+            foreach (var subelement in screen.GetComponentsInChildren<TextMeshProUGUI>())
+            {
+                subelement.enabled = inventoryIsOpen;
+            }
+
             //screen.SetActive(!screen.activeSelf);
         }
         movement.ToggleMovementControls(!inventoryIsOpen);
         attacks.ToggleAttackControls(!inventoryIsOpen);
+    }
+
+    public void Heal(int healAmount)
+    {
+        potionSound?.Play();
+        CharStats.ApplyHealth(healAmount);
     }
 
     void OnEnable()

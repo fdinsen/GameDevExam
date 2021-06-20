@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuHandler : MonoBehaviour
 {
+    [SerializeField] GameObject[] mainMenuOptions;
+    [SerializeField] GameObject tutorialObject;
     public void BeginGame()
     {
         SceneManager.LoadScene(1);
@@ -13,5 +15,23 @@ public class MenuHandler : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void ShowTutorial()
+    {
+        foreach(var screen in mainMenuOptions)
+        {
+            screen.SetActive(false);
+        }
+        tutorialObject.SetActive(true);
+    }
+
+    public void HideTutorial()
+    {
+        foreach (var screen in mainMenuOptions)
+        {
+            screen.SetActive(true);
+        }
+        tutorialObject.SetActive(false);
     }
 }

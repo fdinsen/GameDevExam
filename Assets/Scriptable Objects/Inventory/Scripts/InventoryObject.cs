@@ -204,6 +204,11 @@ public class InventorySlot
     {
         UpdateSlot(item,  amount += value);
     }
+
+    public void DetractAmount(int value)
+    {
+        UpdateSlot(item, amount -= value);
+    }
     public bool CanPlaceInSlot(ItemObject _itemObject)
     {
         if (AllowedItems.Length <= 0 || _itemObject == null || _itemObject.data.Id < 0)

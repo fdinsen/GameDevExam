@@ -12,6 +12,8 @@ TagManager:
   - Text
   - RespawnScreen
   - CauldronPuzzleDoor
+  - Canvas
+  - DeathText
   layers:
   - Default
   - TransparentFX

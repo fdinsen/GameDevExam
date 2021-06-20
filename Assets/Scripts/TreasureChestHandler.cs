@@ -11,6 +11,7 @@ public class TreasureChestHandler : MonoBehaviour, IInteractable
     [SerializeField]
     public int quantity = 1;
     [SerializeField] private GameObject _interactEffect;
+    [SerializeField] private AudioSource _openSound;
 
     void Start()
     {
@@ -22,9 +23,10 @@ public class TreasureChestHandler : MonoBehaviour, IInteractable
     {
         if(item != null)
         {
+            _openSound?.Play();
             Loot();
-        _anim.SetTrigger("Open");
-        item = null;
+            _anim.SetTrigger("Open");
+            item = null;
             _interactEffect?.SetActive(false);
         }
     }

@@ -11,6 +11,7 @@ public class GemReceiver : MonoBehaviour, IInteractable
     [SerializeField]
     private GameObject content;
     [SerializeField] private GameObject _interactEffect;
+    [SerializeField] private AudioSource _gemSound;
 
     private bool activated = false;
     private CauldronPuzzleHandler puzzle;
@@ -39,6 +40,7 @@ public class GemReceiver : MonoBehaviour, IInteractable
             var item = inventory.FindItemOnInventory(keyItem.data);
             if(item != null)
             {
+                _gemSound?.Play();
                 item.RemoveItem();
                 activated = true;
                 puzzle.CheckCauldrons();

@@ -8,6 +8,7 @@ public class CharacterStats : MonoBehaviour
     public CharacterStats_SO characterDefinition;
     public bool isPlayer = false;
 
+
     #region Constructors
     public CharacterStats()
     {

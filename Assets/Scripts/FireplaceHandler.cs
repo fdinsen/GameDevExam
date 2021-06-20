@@ -8,6 +8,7 @@ public class FireplaceHandler : MonoBehaviour, IInteractable
     [SerializeField] private Animator _anim;
     [SerializeField] public ItemObject _item;
     [SerializeField] private GameObject _interactEffect;
+    [SerializeField] private AudioSource _pickupSound;
 
     private InventoryObject _inventory;
 
@@ -28,6 +29,7 @@ public class FireplaceHandler : MonoBehaviour, IInteractable
             Item reward = new Item(_item);
             _inventory.AddItem(reward, 1) ;
             _item = null;
+            _pickupSound?.Play();
             Destroy(_interactEffect);
         }
     }

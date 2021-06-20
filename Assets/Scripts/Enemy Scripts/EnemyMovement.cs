@@ -25,6 +25,8 @@ public class EnemyMovement : MonoBehaviour
     private Animator _animator;
     private bool alive = true;
 
+    [SerializeField] private AudioSource _movementSound;
+
     void Start()
     {
         //makes sure the movepoint won't move with the Enemy
@@ -65,6 +67,7 @@ public class EnemyMovement : MonoBehaviour
         if((_playerIsWithinLOS || _ignoreLOS) && stunTimer <= 0)
         {
             _animator.SetBool("Dizzy", false);
+            _movementSound?.Play();
             _enemyType.Move();
         }else if (stunTimer > 0)
         {

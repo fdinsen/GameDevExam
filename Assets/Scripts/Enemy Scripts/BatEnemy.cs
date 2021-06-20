@@ -17,6 +17,9 @@ public class BatEnemy : MonoBehaviour, IEnemy, IAttackable
     private Animator _animator;
     private EnemyMovement _enemyMovement;
 
+    [SerializeField] private AudioSource _attackSound;
+    [SerializeField] private AudioSource _dieSound;
+
     void Awake()
     {
         _enemyMovement = GetComponent<EnemyMovement>();
@@ -44,6 +47,7 @@ public class BatEnemy : MonoBehaviour, IEnemy, IAttackable
 
                     foreach (IAttackable attackable in attackables)
                     {
+                        _attackSound?.Play();
                         attackable.OnAttacked(gameObject, attack);
                     }
                 }
@@ -165,6 +169,7 @@ public class BatEnemy : MonoBehaviour, IEnemy, IAttackable
 
     public IEnumerator Die()
     {
+        _dieSound?.Play();
         _enemyMovement.SetIgnoreLOS(false);
         _enemyMovement.Die();
         _animator.SetBool("Dead", true);

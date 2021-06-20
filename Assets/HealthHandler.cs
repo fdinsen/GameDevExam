@@ -8,7 +8,6 @@ public class HealthHandler : MonoBehaviour
 {
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private Image healthFill;
-
     [SerializeField] private bool useHSVColor = false;
 
     public delegate void SetHealthEvent(int newhealth);

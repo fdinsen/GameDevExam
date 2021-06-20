@@ -12,6 +12,8 @@ public class SlimeEnemy : MonoBehaviour, IEnemy, IAttackable
     private Animator _animator;
     private EnemyMovement _enemyMovement;
      
+    [SerializeField] private AudioSource _attackSound;
+    [SerializeField] private AudioSource _dieSound;
 
     void Awake()
     {
@@ -39,6 +41,8 @@ public class SlimeEnemy : MonoBehaviour, IEnemy, IAttackable
                 }
             }
         }
+
+        _attackSound?.Play();
         _animator.SetTrigger("Attack");
     }
 
@@ -93,6 +97,7 @@ public class SlimeEnemy : MonoBehaviour, IEnemy, IAttackable
 
     public IEnumerator Die()
     {
+        _dieSound?.Play();
         _enemyMovement.Die();
         _animator.SetBool("Dead", true);
         gameObject.layer = 0; // default

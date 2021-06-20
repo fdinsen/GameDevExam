@@ -7,11 +7,13 @@ public class LeverHandler : MonoBehaviour, IInteractable
     [SerializeField] private Animator _anim;
     [SerializeField] private bool _correctOrientation = false;
     [SerializeField] private int _puzzleId;
+    [SerializeField] private AudioSource _pullSound;
 
     private bool activated = false;
     private LeverPuzzleHandler puzzle;
     public void Interact()
     {
+        _pullSound?.Play();
         activated = !activated;
         _anim.SetBool("Activated", activated);
         puzzle.CheckLevers();

@@ -17,6 +17,12 @@ public class PlayerAttackHandler : MonoBehaviour, IAttackable
     [SerializeField] private float lightningDuration = 2f;
     [SerializeField] private float lightningDelay = 1f;
 
+    [SerializeField] private AudioSource deathSound;
+    [SerializeField] private AudioSource meleeAttackSound;
+    [SerializeField] private AudioSource meleeWideAttackSound;
+    [SerializeField] private AudioSource fireAttackSound;
+    [SerializeField] private AudioSource stunAttackSound;
+
     private PlayerAttackControls m_playerAttackControls;
     private CharacterStats _stats;
     private TurnBasedPlayerMovement playerMovement;
@@ -79,6 +85,8 @@ public class PlayerAttackHandler : MonoBehaviour, IAttackable
 
     void PrimaryAttack()
     {
+        meleeAttackSound?.Play();
+
         RaycastHit hit;
         if(Physics.Raycast(transform.position, transform.forward, out hit, primaryAttack.Range))
         {
@@ -90,6 +98,8 @@ public class PlayerAttackHandler : MonoBehaviour, IAttackable
 
     void SecondaryAttack()
     {
+        meleeWideAttackSound?.Play();
+        
         RaycastHit hit1;
         RaycastHit hit2;
         RaycastHit hit3;
@@ -111,6 +121,8 @@ public class PlayerAttackHandler : MonoBehaviour, IAttackable
 
     void StunAttack()
     {
+        stunAttackSound?.Play();
+
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, modifiedSecondaryAttack.Range))
         {
@@ -124,6 +136,8 @@ public class PlayerAttackHandler : MonoBehaviour, IAttackable
 
     void ProjectileAttack()
     {
+        fireAttackSound?.Play();
+
         playerMovement.InvokePlayerAction();
         var projectileInst
             = Instantiate(
@@ -210,6 +224,7 @@ public class PlayerAttackHandler : MonoBehaviour, IAttackable
 
     private IEnumerator Die()
     {
+        deathSound?.Play();
         _animator.SetBool("Dead", true);
         UnsetInput(m_playerAttackControls);
         playerMovement.ToggleMovementControls(false);
@@ -217,7 +232,7 @@ public class PlayerAttackHandler : MonoBehaviour, IAttackable
         GameObject.FindGameObjectWithTag("DeathText")
             .GetComponent<TextMeshProUGUI>()
             .SetText("You Died!");
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(0);
     }
 }
