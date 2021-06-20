@@ -61,6 +61,7 @@ public class Projectile : MonoBehaviour
 
     private IEnumerator Explode()
     {
+        explosionSound.gameObject.transform.parent = null;
         explosionSound?.Play();
         yield return new WaitForSeconds(.2f);
         Instantiate(explosion, transform.position, Quaternion.identity);
