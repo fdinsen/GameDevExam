@@ -109,7 +109,10 @@ public class TurnBasedPlayerMovement : MonoBehaviour
                     {
                         _movePoint.position += new Vector3(input.x * _moveDistance, 0f, 0f);
                         _movePoint.rotation = Quaternion.Euler(0, 90 * input.x, 0);
-                        _footsteps?.Play();
+                        if (!_footsteps.isPlaying)
+                        {
+                            _footsteps?.Play();
+                        }
                         PlayerMoved?.Invoke();
                         _animator?.SetFloat("MoveSpeed", Math.Abs(input.x));
                     }
@@ -120,7 +123,10 @@ public class TurnBasedPlayerMovement : MonoBehaviour
                     {
                         _movePoint.position += new Vector3(0f, 0f, input.y * _moveDistance);
                         _movePoint.rotation = Quaternion.Euler(0, 180 * Mathf.Clamp(input.y * 2, 1, 2), 0);
-                        _footsteps?.Play();
+                        if(!_footsteps.isPlaying)
+                        {
+                            _footsteps?.Play();
+                        }
                         PlayerMoved?.Invoke();
                         _animator?.SetFloat("MoveSpeed", Math.Abs(input.y));
                     }
